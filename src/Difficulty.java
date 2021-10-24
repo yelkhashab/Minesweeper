@@ -6,12 +6,12 @@ public class Difficulty {
     public int stones;
 
     public Difficulty(String diff){
-        if(diff.compareToIgnoreCase("Small")){
+        if(diff.compareToIgnoreCase("Small") == 0){
             len = 9;
             width = 9;
             stones = 10;
         }
-        else if(diff.compareToIgnoreCase("Meduim")){
+        else if(diff.compareToIgnoreCase("Meduim") == 0){
             len = 16;
             width = 16;
             stones = 40;
