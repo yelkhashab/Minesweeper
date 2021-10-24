@@ -5,9 +5,6 @@ public class Grid {
 
     public Grid(int width, int height) {
         grid = new JButton[height][width];
-
-        // Initialize starting positions
-        grid[0][0] = 1;
     }
 
     // Make the requested move at (row, col) by changing the grid.
