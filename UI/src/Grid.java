@@ -1,43 +1,27 @@
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Grid {
+
+    public int width;
+    public int height;
     private JButton[][] grid;
+    private boolean[][] isMine;
+    private int[][] numberOfMines;
 
-    public Grid(int width, int height) {
+//    public Grid(int width, int height) {
+//        grid = new JButton[height][width];
+//    }
+
+    public Grid(int width, int height, int numberOfMines) {
+        this.width = width;
+        this.height = height;
         grid = new JButton[height][width];
-
-        // Initialize starting positions
-        grid[0][0] = 1;
     }
 
-    // Make the requested move at (row, col) by changing the grid.
-    // returns false if no move was made, true if the move was successful.
-    public boolean move(int row, int col) {
-        System.out.println("[DEBUGGING INFO] You clicked in row " + row + " and column " + col);
-
-        // check if move is not valid.  If so, return false.
-
-
-
-        return true; // if move was valid, return true
-    }
-
-    public boolean isGameOver() {
-
-        /*** YOU COMPLETE THIS METHOD ***/
-
-        return false;
-    }
-
-    public int[][] getGrid() {
+    public JButton[][] getGrid(){
         return grid;
-    }
-
-    // Return true if the row and column in location loc are in bounds for the grid
-    public boolean isInGrid(int row, int col) {
-
-        /*** YOU COMPLETE THIS METHOD ***/
-
-        return false;
     }
 }
