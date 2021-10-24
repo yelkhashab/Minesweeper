@@ -18,5 +18,9 @@ Backend:
 
 Frontend (UI):
 •	Contains the main method which prompts the user to choose between the three sizes of grids that could be implemented.
+<img width="417" alt="image" src="https://user-images.githubusercontent.com/88597501/138615160-6fa89799-0fbb-4fee-b3b5-9b04fd4b5936.png">
+
 •	We had to create a Difficulty class that sets the parameters of the game based on the user’s choice of difficulty. This class also contains parameters for the width, height, and stones, where they will be set dynamically in its constructor. 
 •	Created an interface where we split the pixels on the screen into clickable buttons. When clicked, the button dims, shows the stone, or shows a number for the number of adjacent stones.
+<img width="1028" alt="image" src="https://user-images.githubusercontent.com/88597501/138615179-cd12edf0-0378-46e4-bae4-41694875798d.png">
+
