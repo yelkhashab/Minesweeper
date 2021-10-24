@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class MineSweeperGUI extends JFrame {
     private static final String TITLE = "Minesweeper";
@@ -28,9 +30,20 @@ public class MineSweeperGUI extends JFrame {
         buttonGrid = new JButton[10][10];
         mainPanel.setLayout(new GridLayout(grid.height, grid.width));
         restartGameButton.setVisible(true);
+
         for (JButton[] row : buttonGrid) {
             for (JButton col : row) {
-                col = new JButton("empty");
+
+                col = new JButton();
+
+                col.addActionListener(new ActionListener() {
+
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        //your actions
+                        setEnabled(false);
+                    }
+                });
                 //col.setText("empty");
                 mainPanel.add(col);
             }
@@ -39,7 +52,7 @@ public class MineSweeperGUI extends JFrame {
     }
 
     public static void main(String[] args) {
-        JFrame frame = new MineSweeperGUI(TITLE);
+        new MineSweeperGUI(TITLE);
     }
 
     private void setRestartGameButton() {
