@@ -15,9 +15,8 @@ public class Game {
     // Returns number of stones in adjacent 3x3 grid
     int adjacentStones(int x, int y) {
         if (x < 0 || y < 0 || x > gridWidth || y > gridHeight) {
-            return -1;
+            return 0;
         }
-
         int total = 0;
 
         for (int i = -1; i < 1; i++){
@@ -35,7 +34,7 @@ public class Game {
 
         revealed[x][y] = true;
 
-        if(adjacentStones(x,y) != -1)
+        if(adjacentStones(x,y) != 0)
             return;
 
         // if all adjacent cells are clear, recusively check all adjacent cells
@@ -59,7 +58,7 @@ public class Game {
 
     //places a marker indicating suspected stone location
     void flag(int x, int y) {
-        flags[x][y] = true;
+        flags[x][y] = !flags[x][y];
     }
 
     void init(){
@@ -76,6 +75,7 @@ public class Game {
         }
     }
 
+    //randomly assigns stones to the grid
     void placeStones(){
         int placed = 0;
         while (placed < numStones){
@@ -90,6 +90,7 @@ public class Game {
         }
     }
 
+    //clears stones from grid
     void clearStones(){
         for(int x = 0; x < gridWidth; x++) {
             for (int y = 0; y < gridHeight; y++) {
@@ -103,7 +104,15 @@ public class Game {
     }
 
     public static void main(String args[]) {
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Which board size do you want to select: \nSmall \nMedium \nLarge");
+        String diff = scan.nextLine();
 
+        Game game = new Game();
+        Difficulty size = new Difficulty(diff);
+        game.gridWidth = size.getWidth();
+        game.gridHeight = size.getHeight();
+        game.numStones = size.getStones();
     }
 
 }
