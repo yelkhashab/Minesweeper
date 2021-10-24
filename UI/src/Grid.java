@@ -15,9 +15,9 @@ public class Grid {
 //        grid = new JButton[height][width];
 //    }
 
-    public Grid(int width, int height, int numberOfMines) {
-        this.width = width;
-        this.height = height;
+    public Grid(Difficulty diff) {
+        this.width = diff.gridWidth;
+        this.height = diff.gridHeight;
         grid = new JButton[height][width];
     }
 

@@ -4,6 +4,9 @@ import java.util.InputMismatchException;
 import java.lang.Math;
 
 public class Game {
+    MineSweeperGUI gui;
+    Difficulty diff;
+
     int gridWidth;
     int gridHeight;
     int numStones;
@@ -12,9 +15,20 @@ public class Game {
     boolean[][] flags;
     boolean[][] revealed;
 
+    int buttonX;
+    int buttonY;
+
+    public Game(Difficulty diff){
+        this.diff = diff;
+        this.gridWidth = diff.getWidth();
+        this.gridHeight = diff.getHeight();
+        this.numStones = diff.getStones();
+        init();
+        placeStones();
+    }
     // Returns number of stones in adjacent 3x3 grid
     int adjacentStones(int x, int y) {
-        if (x < 0 || y < 0 || x > gridWidth || y > gridHeight) {
+        if (x <  0 || y < 0 || x > gridWidth || y > gridHeight) {
             return 0;
         }
         int total = 0;
@@ -80,8 +94,8 @@ public class Game {
     void placeStones(){
         int placed = 0;
         while (placed < numStones){
-            int x = (int)Math.floor(Math.random()*(gridWidth+1));
-            int y = (int)Math.floor(Math.random()*(gridHeight+1));
+            int x = (int)Math.floor(Math.random()*(gridWidth));
+            int y = (int)Math.floor(Math.random()*(gridHeight));
 
             if (stones[x][y] == 1){
                 continue;
@@ -100,21 +114,21 @@ public class Game {
         }
     }
 
-    //restart game
-    void restart(){
-        new Game();
+    void mousePressed(int x, int y) {
+        //Check for game loss
+        if (stones[x][y]!=0) {
+            return;
+        } else {//If game not lost, reveal starting from that square
+            check(x, y);
+        }
     }
 
-    public static void main(String args[]) {
-        Scanner scan = new Scanner(System.in);
-        System.out.println("Which board size do you want to select: \nSmall \nMedium \nLarge");
-        String diff = scan.nextLine();
-
-        Game game = new Game();
-        Difficulty size = new Difficulty(diff);
-        game.gridWidth = size.getWidth();
-        game.gridHeight = size.getHeight();
-        game.numStones = size.getStones();
+    //restart game
+    void restart() {
+        clearStones();
+        init();
+        placeStones();
+        new Game(this.diff);
     }
 
 }

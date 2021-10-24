@@ -2,21 +2,26 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Scanner;
 
 public class MineSweeperGUI extends JFrame {
     private static final String TITLE = "Minesweeper";
 
+    private Game game;
     private JPanel mainPanel;
+    private JButton lastButtonClicked;
+    public int x = 1;
+    public int y = 1;
 
     private Grid grid;
+    private JButton[][] buttonGrid;
     private JButton restartGameButton;
     private JPanel panel1;
-    private JButton[][] buttonGrid;
 
     //public Difficulty difficulty;
-
-    public MineSweeperGUI(String title) {
-        super(title);
+    public MineSweeperGUI(Difficulty diff) {
+        super(TITLE);
+        game = new Game(diff);
         $$$setupUI$$$();
         this.setSize(1000, 1000);
 
@@ -25,15 +30,24 @@ public class MineSweeperGUI extends JFrame {
         this.setVisible(true);
         this.getContentPane().setSize(1000, 1000);
 
-        grid = new Grid(10, 10, 10);
-        JButton[][] buttonGrid = grid.getGrid();
+        grid = new Grid(diff);
+        this.buttonGrid = grid.getGrid();
         mainPanel.setLayout(new GridLayout(grid.height, grid.width));
         restartGameButton.setVisible(true);
         restartGameButton.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                grid = new Grid(10, 10, 10);
+                grid = new Grid(diff);
+                game.restart();
+                JButton finalCol;
+                for (JButton[] row : buttonGrid) {
+                    for (JButton col : row) {
+                        col = new JButton();
+                        finalCol = col;
+                        finalCol.setEnabled(true);
+                    }
+                }
             }
         });
 
@@ -50,6 +64,25 @@ public class MineSweeperGUI extends JFrame {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         finalCol.setEnabled(!finalCol.isEnabled());
+                        lastButtonClicked = finalCol;
+//                        for (int row = 0; row < grid.height; row++) {
+//                            for (int col = 0; col < grid.width; col++) {
+//                                if (buttonGrid[row][col] == e.getSource()) {
+//                                    System.out.println("Hello");
+//                                    x = row;
+//                                    y = col;
+//                                }
+//                                // here you have your row and column
+//                            }
+//                        }
+//
+//                        System.out.println(x + " " + y);
+//                        game.mousePressed(x, y);
+//                        for (boolean[] row : game.revealed) {
+//                            for (boolean col : row) {
+//                                finalCol.setEnabled(!col);
+//                            }
+ //                       }
                     }
                 });
 
@@ -58,11 +91,20 @@ public class MineSweeperGUI extends JFrame {
         }
     }
 
+    public static void main(String args[]) {
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Which board size do you want to select: \nSmall \nMedium \nLarge");
+        String diff = scan.nextLine();
+
+        MineSweeperGUI gui = new MineSweeperGUI(new Difficulty(diff));
+
+    }
+
 //    private makeNewGrid() {
 //
 //    }
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         Thread thread = new Thread() {
             public void run() {
                 new MineSweeperGUI(TITLE);
@@ -70,7 +112,7 @@ public class MineSweeperGUI extends JFrame {
         };
 
         thread.start();
-    }
+    }*/
 
 
     /**
