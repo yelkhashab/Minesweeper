@@ -18,44 +18,58 @@ public class MineSweeperGUI extends JFrame {
     public MineSweeperGUI(String title) {
         super(title);
         $$$setupUI$$$();
+        this.setSize(1000, 1000);
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setContentPane(panel1);
         this.setVisible(true);
-        //this.getContentPane().setSize(1000, 1000);
-        //this.pack();
+        this.getContentPane().setSize(1000, 1000);
 
-        grid = new Grid(5, 5, 10);
+        grid = new Grid(10, 10, 10);
         JButton[][] buttonGrid = grid.getGrid();
-        buttonGrid = new JButton[10][10];
         mainPanel.setLayout(new GridLayout(grid.height, grid.width));
         restartGameButton.setVisible(true);
+        restartGameButton.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                grid = new Grid(10, 10, 10);
+            }
+        });
 
         for (JButton[] row : buttonGrid) {
             for (JButton col : row) {
-
                 col = new JButton();
+                col.setVisible(true);
+                col.setEnabled(true);
+                col.setPreferredSize(new Dimension(40, 40));
 
+                JButton finalCol = col;
                 col.addActionListener(new ActionListener() {
 
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        //your actions
-                        setEnabled(false);
+                        finalCol.setEnabled(!finalCol.isEnabled());
                     }
                 });
-                //col.setText("empty");
+
                 mainPanel.add(col);
             }
         }
-
     }
+
+//    private makeNewGrid() {
+//
+//    }
 
     public static void main(String[] args) {
-        new MineSweeperGUI(TITLE);
-    }
+        Thread thread = new Thread() {
+            public void run() {
+                new MineSweeperGUI(TITLE);
+            }
+        };
 
-    private void setRestartGameButton() {
+        thread.start();
     }
 
 
@@ -71,7 +85,7 @@ public class MineSweeperGUI extends JFrame {
         panel1.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(2, 1, new Insets(0, 0, 0, 0), -1, -1));
         restartGameButton = new JButton();
         restartGameButton.setText("Restart Game");
-        panel1.add(restartGameButton, new com.intellij.uiDesigner.core.GridConstraints(0, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        panel1.add(restartGameButton, new com.intellij.uiDesigner.core.GridConstraints(0, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         mainPanel = new JPanel();
         mainPanel.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(1, 1, new Insets(0, 0, 0, 0), -1, -1));
         panel1.add(mainPanel, new com.intellij.uiDesigner.core.GridConstraints(1, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_BOTH, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));

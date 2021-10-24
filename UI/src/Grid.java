@@ -1,4 +1,7 @@
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Grid {
 
@@ -16,12 +19,6 @@ public class Grid {
         this.width = width;
         this.height = height;
         grid = new JButton[height][width];
-
-//           for (JButton[] row : grid) {
-//               for (JButton col : row){
-//                   col.setVisible(true);
-//               }
-//            }
     }
 
     public JButton[][] getGrid(){
