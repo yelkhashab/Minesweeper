@@ -57,17 +57,6 @@ public class Game {
                 check(x + i, y + j);
             }
         }
-
-        /*
-        check(x-1,y-1);
-        check(x-1,y+1);
-        check(x+1,y-1);
-        check(x+1,y+1);
-        check(x-1,y);
-        check(x+1,y);
-        check(x,y-1);
-        check(x,y+1);
-         */
     }
 
     //places a marker indicating suspected stone location
