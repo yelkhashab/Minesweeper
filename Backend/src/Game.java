@@ -12,6 +12,10 @@ public class Game {
     boolean[][] revealed;
 
     int adjacentCells(int x, int y) {
+        if (x < 0 || y < 0 || x > gridWidth || y > gridHight) {
+            return 0;
+        }
+
         int total = 0;
 
         for (int i = -1; i < 1; i++){
@@ -20,6 +24,25 @@ public class Game {
             }
         }
         return total;
+    }
+
+    void check(int x, int y) {
+        if(revealed[x][y])
+            return;
+
+        revealed[x][y]=true;
+
+        if(adjacentCells(x,y)!=0)
+            return;
+
+        check(x-1,y-1);
+        check(x-1,y+1);
+        check(x+1,y-1);
+        check(x+1,y+1);
+        check(x-1,y);
+        check(x+1,y);
+        check(x,y-1);
+        check(x,y+1);
     }
 
     public static void main(String args[]) {
