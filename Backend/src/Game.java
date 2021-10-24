@@ -37,7 +37,7 @@ public class Game {
         if(adjacentStones(x,y) != 0)
             return;
 
-        // if all adjacent cells are clear, recusively check all adjacent cells
+        // if all adjacent cells are clear, recursively check all adjacent cells
         for(int i = -1; i < 1; i++) {
             for (int j = -1; j < 1; j++) {
                 check(x + i, y + j);
@@ -61,8 +61,9 @@ public class Game {
         flags[x][y] = !flags[x][y];
     }
 
+    //initialize and clear the arrays
     void init(){
-        //initialize and clear the arrays
+
         stones = new int[gridWidth][gridHeight];
         flags = new boolean[gridWidth][gridHeight];
         revealed = new boolean[gridWidth][gridHeight];
@@ -99,6 +100,7 @@ public class Game {
         }
     }
 
+    //restart game
     void restart(){
         new Game();
     }
